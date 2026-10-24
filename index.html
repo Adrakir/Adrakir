@@ -350,18 +350,8 @@ function narrate(all){
  playSpeechSegment();
 }
 function showNarratedChapter(chapter){
- const c=find(state.id);
- if(!c||chapter===state.act)return;
- state.act=chapter;
- const title=document.querySelector('.chaptertitle'),body=document.querySelector('.storytext'),tag=document.querySelector('.chapter');
- if(title)title.textContent=c.acts[chapter][0];
- if(body)body.textContent=c.acts[chapter][1];
- if(tag)tag.textContent='SZENE '+(chapter+1)+' / '+c.acts.length;
- document.querySelectorAll('.scenebar span').forEach((span,i)=>span.classList.toggle('on',i<=chapter));
- document.querySelectorAll('[data-chapter]').forEach((b,i)=>{b.classList.toggle('primary',i===chapter);b.setAttribute('aria-current',i===chapter?'step':'false');});
- const clarity=document.querySelector('.claritybox');if(clarity)clarity.hidden=chapter!==0;
- const next=document.querySelector('[data-action="next"]');
- if(next)next.textContent=chapter===c.acts.length-1?'✓ Geschichte vollständig':'Nächste Szene →';
+ const c=find(state.id);if(!c||chapter===state.act)return;
+ state.act=chapter;renderStory();
 }
 function playSpeechSegment(){
  const task=speechTask;
